@@ -18,6 +18,7 @@ namespace Computer_Tasks_Timer
         {
             formTitle = this.Text;
             TaskSelector.SelectedIndex = Properties.Settings.Default.TaskIndex;
+            MyDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
         }
 
         private int TotalSeconds()
@@ -53,6 +54,7 @@ namespace Computer_Tasks_Timer
                     MinutesCount.Value++;
                     SecondsCount.Value = 0;
                 }
+
             if (SecondsCount.Value == SecondsCount.Minimum)
                 if (HoursCount.Value > HoursCount.Minimum || MinutesCount.Value > MinutesCount.Minimum + 1)
                 {
@@ -86,6 +88,8 @@ namespace Computer_Tasks_Timer
 
         private void TaskTimer_Tick(object sender, EventArgs e)
         {
+            MyDateTimePicker.Value = DateTime.Now.AddSeconds(TotalSeconds());
+            MyDateTimePicker.Checked = false;
             if (TotalSeconds() > 0)
             {
                 SetCounts(TotalSeconds() - 1);
@@ -115,14 +119,41 @@ namespace Computer_Tasks_Timer
 
         private void StartBTN_Click(object sender, EventArgs e)
         {
+            if (MyDateTimePicker.Checked)
+            {
+                if (MyDateTimePicker.Value < DateTime.Now)
+                {
+                    MyDateTimePicker.Value = DateTime.Now;
+                    MessageBox.Show("The time cannot be past time...");
+                }
+                else
+                    SetCounts((int)(MyDateTimePicker.Value - DateTime.Now).TotalSeconds);
+            }
+            if (!TaskTimer.Enabled)
+            {
+                HoursCount.Enabled = true;
+                MinutesCount.Enabled = true;
+                SecondsCount.Enabled = true;
+            }
             TaskTimer.Enabled = !TaskTimer.Enabled;
             StartBTN.Text = !TaskTimer.Enabled ? "Start" : "Pause";
+            MyDateTimePicker.Enabled = !TaskTimer.Enabled;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.TaskIndex = TaskSelector.SelectedIndex;
             Properties.Settings.Default.Save();
+        }
+
+        private void MyDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (!TaskTimer.Enabled)
+            {
+                HoursCount.Enabled = !MyDateTimePicker.Checked;
+                MinutesCount.Enabled = !MyDateTimePicker.Checked;
+                SecondsCount.Enabled = !MyDateTimePicker.Checked;
+            }
         }
     }
 }

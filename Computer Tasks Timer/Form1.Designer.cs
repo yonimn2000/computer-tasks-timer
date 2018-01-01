@@ -39,6 +39,7 @@
             this.TaskSelector = new System.Windows.Forms.ComboBox();
             this.StartBTN = new System.Windows.Forms.Button();
             this.TaskTimer = new System.Windows.Forms.Timer(this.components);
+            this.MyDateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.SecondsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinutesCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HoursCount)).BeginInit();
@@ -116,7 +117,7 @@
             this.HoursCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HoursCount.Location = new System.Drawing.Point(6, 25);
             this.HoursCount.Maximum = new decimal(new int[] {
-            99,
+            99999,
             0,
             0,
             0});
@@ -158,11 +159,24 @@
             this.TaskTimer.Interval = 1000;
             this.TaskTimer.Tick += new System.EventHandler(this.TaskTimer_Tick);
             // 
+            // MyDateTimePicker
+            // 
+            this.MyDateTimePicker.Checked = false;
+            this.MyDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.MyDateTimePicker.Location = new System.Drawing.Point(6, 69);
+            this.MyDateTimePicker.MinDate = new System.DateTime(2018, 1, 1, 0, 0, 0, 0);
+            this.MyDateTimePicker.Name = "MyDateTimePicker";
+            this.MyDateTimePicker.ShowCheckBox = true;
+            this.MyDateTimePicker.Size = new System.Drawing.Size(249, 20);
+            this.MyDateTimePicker.TabIndex = 20;
+            this.MyDateTimePicker.ValueChanged += new System.EventHandler(this.MyDateTimePicker_ValueChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 71);
+            this.ClientSize = new System.Drawing.Size(261, 98);
+            this.Controls.Add(this.MyDateTimePicker);
             this.Controls.Add(this.StartBTN);
             this.Controls.Add(this.SecondsLBL);
             this.Controls.Add(this.MinutesLBL);
@@ -196,6 +210,7 @@
         private System.Windows.Forms.ComboBox TaskSelector;
         private System.Windows.Forms.Button StartBTN;
         private System.Windows.Forms.Timer TaskTimer;
+        private System.Windows.Forms.DateTimePicker MyDateTimePicker;
     }
 }
 
