@@ -137,6 +137,7 @@
             "Sleep",
             "Hibernate",
             "Screen Off",
+            "Screen Off +🔒",
             "Sign Out"});
             this.TaskSelector.Location = new System.Drawing.Point(174, 6);
             this.TaskSelector.Name = "TaskSelector";

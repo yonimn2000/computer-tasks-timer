@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Computer_Tasks_Timer
@@ -7,7 +6,7 @@ namespace Computer_Tasks_Timer
     public partial class MainForm : Form
     {
         string formTitle;
-        [DllImport("user32.dll")]
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
         public MainForm()
         {
@@ -107,7 +106,8 @@ namespace Computer_Tasks_Timer
                     case "Shutdown": System.Diagnostics.Process.Start("shutdown.exe", "/s /t 0"); break;
                     case "Restart": System.Diagnostics.Process.Start("shutdown.exe", "/r /t 0"); break;
                     case "Sleep": System.Diagnostics.Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0"); break;
-                    case "Screen Off": System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
+                    case "Screen Off": SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
+                    case "Screen Off +🔒": System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
                     case "Lock": System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); break;
                     case "Hibernate": System.Diagnostics.Process.Start("shutdown.exe", "/h"); break;
                     case "Sign Out": System.Diagnostics.Process.Start("shutdown.exe", "/l"); break;
