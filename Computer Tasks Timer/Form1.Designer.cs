@@ -40,6 +40,7 @@
             this.StartBTN = new System.Windows.Forms.Button();
             this.TaskTimer = new System.Windows.Forms.Timer(this.components);
             this.MyDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.MyProgressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.SecondsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinutesCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HoursCount)).BeginInit();
@@ -172,11 +173,20 @@
             this.MyDateTimePicker.TabIndex = 20;
             this.MyDateTimePicker.ValueChanged += new System.EventHandler(this.MyDateTimePicker_ValueChanged);
             // 
+            // MyProgressBar
+            // 
+            this.MyProgressBar.Location = new System.Drawing.Point(6, 95);
+            this.MyProgressBar.Name = "MyProgressBar";
+            this.MyProgressBar.Size = new System.Drawing.Size(249, 23);
+            this.MyProgressBar.Step = 1;
+            this.MyProgressBar.TabIndex = 21;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 98);
+            this.ClientSize = new System.Drawing.Size(261, 125);
+            this.Controls.Add(this.MyProgressBar);
             this.Controls.Add(this.MyDateTimePicker);
             this.Controls.Add(this.StartBTN);
             this.Controls.Add(this.SecondsLBL);
@@ -191,6 +201,8 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Tasks Timer";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
+            this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SecondsCount)).EndInit();
@@ -212,6 +224,7 @@
         private System.Windows.Forms.Button StartBTN;
         private System.Windows.Forms.Timer TaskTimer;
         private System.Windows.Forms.DateTimePicker MyDateTimePicker;
+        private System.Windows.Forms.ProgressBar MyProgressBar;
     }
 }
 
