@@ -11,9 +11,14 @@ namespace Computer_Tasks_Timer
         bool isFormFocused = true;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
+            if (args.Length > 0)
+            {   //Starts the timer with the seconds set by an outside program.
+                SetCounts(int.Parse(args[0]));
+                StartBTN_Click(null, EventArgs.Empty);
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -30,9 +35,7 @@ namespace Computer_Tasks_Timer
 
         private void SetCounts(int totalSeconds)
         {
-            SecondsCount.Value = 0;
-            MinutesCount.Value = 0;
-            HoursCount.Value = 0;
+            SecondsCount.Value = MinutesCount.Value = HoursCount.Value = 0;
             while (totalSeconds - 3600 > 0)
             {
                 HoursCount.Value++;
@@ -139,6 +142,7 @@ namespace Computer_Tasks_Timer
 
         private void StartBTN_Click(object sender, EventArgs e)
         {
+            this.Text = formTitle;
             totalSecondsAtStart = GetTotalSeconds();
             MyProgressBar.Value = 0;
             if (MyDateTimePicker.Checked)
@@ -152,11 +156,7 @@ namespace Computer_Tasks_Timer
                     SetCounts((int)(MyDateTimePicker.Value - DateTime.Now).TotalSeconds);
             }
             if (!TaskTimer.Enabled)
-            {
-                HoursCount.Enabled = true;
-                MinutesCount.Enabled = true;
-                SecondsCount.Enabled = true;
-            }
+                HoursCount.Enabled = MinutesCount.Enabled = SecondsCount.Enabled = true;
             TaskTimer.Enabled = !TaskTimer.Enabled;
             if (GetTotalSeconds() < 10 && TaskTimer.Enabled)
             {
@@ -178,11 +178,7 @@ namespace Computer_Tasks_Timer
         private void MyDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (!TaskTimer.Enabled)
-            {
-                HoursCount.Enabled = !MyDateTimePicker.Checked;
-                MinutesCount.Enabled = !MyDateTimePicker.Checked;
-                SecondsCount.Enabled = !MyDateTimePicker.Checked;
-            }
+                HoursCount.Enabled = MinutesCount.Enabled = SecondsCount.Enabled = !MyDateTimePicker.Checked;
         }
 
         private void MainForm_Deactivate(object sender, EventArgs e)
