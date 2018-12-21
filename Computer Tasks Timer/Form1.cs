@@ -25,7 +25,7 @@ namespace Computer_Tasks_Timer
         {
             formTitle = this.Text;
             TaskSelector.SelectedIndex = Properties.Settings.Default.TaskIndex;
-            MyDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            MyDateTimePicker.CustomFormat = "MM/dd/yyyy H:mm:ss";
         }
 
         private int GetTotalSeconds()
@@ -91,6 +91,18 @@ namespace Computer_Tasks_Timer
                     MinutesCount.Value = 0;
         }
 
+        enum Tasks
+        {
+            Shutdown,
+            Restart,
+            Lock,
+            Sleep,
+            Hibernate,
+            ScreenOff,
+            ScreenOffAndLock,
+            SignOut
+        }
+
         private void TaskTimer_Tick(object sender, EventArgs e)
         {
             MyDateTimePicker.Value = DateTime.Now.AddSeconds(GetTotalSeconds());
@@ -124,17 +136,36 @@ namespace Computer_Tasks_Timer
             {
                 StartBTN.Text = "Start";
                 TaskTimer.Enabled = false;
-                switch (TaskSelector.SelectedItem)
+                switch ((Tasks)TaskSelector.SelectedIndex)
                 {
-                    case "Shutdown": System.Diagnostics.Process.Start("shutdown.exe", "/s /t 0"); break;
-                    case "Restart": System.Diagnostics.Process.Start("shutdown.exe", "/r /t 0"); break;
-                    case "Sleep": System.Diagnostics.Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0"); break;
-                    case "Screen Off": SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
-                    case "Screen Off +🔒": System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
-                    case "Lock": System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); break;
-                    case "Hibernate": System.Diagnostics.Process.Start("shutdown.exe", "/h"); break;
-                    case "Sign Out": System.Diagnostics.Process.Start("shutdown.exe", "/l"); break;
-                    default: MessageBox.Show("Unknown item selected..."); break;
+                    case Tasks.Shutdown:
+                        System.Diagnostics.Process.Start("shutdown.exe", "/s /t 0");
+                        break;
+                    case Tasks.Restart:
+                        System.Diagnostics.Process.Start("shutdown.exe", "/r /t 0");
+                        break;
+                    case Tasks.Sleep:
+                        System.Diagnostics.Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0");
+                        break;
+                    case Tasks.ScreenOff:
+                        SendMessage(0xFFFF, 0x112, 0xF170, 2);
+                        break;
+                    case Tasks.ScreenOffAndLock:
+                        System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation");
+                        SendMessage(0xFFFF, 0x112, 0xF170, 2);
+                        break;
+                    case Tasks.Lock:
+                        System.Diagnostics.Process.Start("Rundll32.exe", "User32.dll,LockWorkStation");
+                        break;
+                    case Tasks.Hibernate:
+                        System.Diagnostics.Process.Start("shutdown.exe", "/h");
+                        break;
+                    case Tasks.SignOut:
+                        System.Diagnostics.Process.Start("shutdown.exe", "/l");
+                        break;
+                    default:
+                        MessageBox.Show("Unknown task");
+                        break;
                 }
                 Application.Exit();
             }
