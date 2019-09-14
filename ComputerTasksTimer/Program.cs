@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Computer_Tasks_Timer
+namespace YonatanMankovich.ComputerTasksTimer
 {
     static class Program
     {

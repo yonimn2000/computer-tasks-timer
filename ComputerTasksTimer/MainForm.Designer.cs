@@ -1,4 +1,4 @@
-﻿namespace Computer_Tasks_Timer
+﻿namespace YonatanMankovich.ComputerTasksTimer
 {
     partial class MainForm
     {
@@ -200,11 +200,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Tasks Timer";
+            this.Text = "Computer Tasks Timer";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SecondsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinutesCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HoursCount)).EndInit();
