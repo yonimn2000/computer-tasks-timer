@@ -20,6 +20,12 @@ The second argument is the index of the task (zero-based according to the list a
 
 For example, the arguments `3600 1` will set the computer to restart in one hour.
 
-## Screenshot
+## Screenshots
 
-![screenshot](media/screenshot.png)
+Set timer:
+
+![Screenshots1](media/screenshots1.gif)
+
+Or select exact date and time:
+
+![Screenshots2](media/screenshots2.gif)
