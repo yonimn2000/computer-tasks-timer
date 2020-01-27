@@ -13,7 +13,7 @@ A tool to easily set timer for your computer to lock, shutdown, restart, etc. or
 6. Screen off with lock
 7. Sign out
 
-## Command Line Arguments (Optional)
+## Optional Command Line Arguments
 
 The first argument is the number of seconds to set the timer to.
 The second argument is the index of the task (zero-based according to the list above. Default index is 0).
