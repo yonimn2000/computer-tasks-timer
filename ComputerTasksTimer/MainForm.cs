@@ -16,6 +16,9 @@ namespace YonatanMankovich.ComputerTasksTimer
         [DllImport("user32.dll")]
         private static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
+
         public MainForm(string[] args)
         {
             InitializeComponent();
@@ -118,7 +121,7 @@ namespace YonatanMankovich.ComputerTasksTimer
                     TotalSecondsAtStart = totalSeconds;
 
                 MyProgressBar.Value = (int)(100 * (TotalSecondsAtStart - totalSeconds) / TotalSecondsAtStart);
-                
+
                 TaskbarManager taskbar = TaskbarManager.Instance;
                 taskbar.SetProgressValue(MyProgressBar.Value, 100);
 
@@ -152,6 +155,7 @@ namespace YonatanMankovich.ComputerTasksTimer
 
                 Application.Exit();
             }
+            KeepAwake();
         }
 
         private void StartBTN_Click(object sender, EventArgs e)
@@ -210,6 +214,12 @@ namespace YonatanMankovich.ComputerTasksTimer
         private void MainForm_Activated(object sender, EventArgs e)
         {
             IsFormFocused = true;
+        }
+
+        private void KeepAwake()
+        {
+            // Disable monitor sleep and keep system awake and prevent idle to sleep
+            SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
         }
     }
 }
