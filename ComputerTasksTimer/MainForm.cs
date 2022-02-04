@@ -123,14 +123,14 @@ namespace YonatanMankovich.ComputerTasksTimer
                 MyProgressBar.Value = (int)(100 * (TotalSecondsAtStart - totalSeconds) / TotalSecondsAtStart);
 
                 TaskbarManager taskbar = TaskbarManager.Instance;
-                taskbar.SetProgressValue(MyProgressBar.Value, 100);
-
                 if (MyProgressBar.Value > 75)
                     taskbar.SetProgressState(TaskbarProgressBarState.Error);
                 else if (MyProgressBar.Value > 50)
                     taskbar.SetProgressState(TaskbarProgressBarState.Paused);
                 else
                     taskbar.SetProgressState(TaskbarProgressBarState.Normal);
+
+                taskbar.SetProgressValue(MyProgressBar.Value, 100);
             }
             else
             {
