@@ -26,13 +26,13 @@ namespace YonatanMankovich.ComputerTasksTimer
             TaskSelector.SelectedIndex = Settings.Default.TaskIndex;
             MyDateTimePicker.CustomFormat = "MM/dd/yyyy H:mm:ss";
 
-            if (args.Length > 0) // Arg 0 is seconds; Arg 1 is task index.
+            if (args.Length > 0) // Arg 0 is seconds; Arg 1 is the task name.
             {
                 // Start the timer with the seconds set by an outside program.
                 SetCounts(uint.Parse(args[0]));
 
                 if (args.Length > 1)
-                    TaskSelector.SelectedIndex = int.Parse(args[1]);
+                    TaskSelector.SelectedIndex = (int)Enum.Parse(typeof(Tasks), args[1], ignoreCase: true);
 
                 StartBTN_Click(null, EventArgs.Empty);
             }

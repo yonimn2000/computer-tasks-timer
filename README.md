@@ -4,21 +4,21 @@ A tool to easily set timer for your computer to lock, shutdown, restart, etc. or
 
 ## Available Tasks
 
-0. Shutdown
-1. Restart
-2. Lock
-3. Sleep
-4. Hibernate
-5. Screen off
-6. Screen off with lock
-7. Sign out
+* Shutdown
+* Restart
+* Lock
+* Sleep
+* Hibernate
+* Screen off
+* Screen off with lock
+* Sign out
 
 ## Optional Command Line Arguments
 
-The first argument is the number of seconds to set the timer to.
-The second argument is the index of the task (zero-based according to the list above. Default index is 0).
+1. The number of seconds to set the timer to.
+2. The name of the task from the following list: `Shutdown`, `Restart`, `Lock`, `Sleep`, `Hibernate`, `ScreenOff`, `ScreenOffAndLock`, `SignOut`.
 
-For example, the arguments `3600 1` will set the computer to restart in one hour.
+For example, the arguments `3600 Restart` will set the computer to restart in one hour.
 
 ## Screenshots
 
