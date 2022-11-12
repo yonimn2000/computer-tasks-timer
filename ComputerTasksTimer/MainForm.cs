@@ -1,6 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using YonatanMankovich.ComputerTasksTimer.Properties;
@@ -12,9 +11,6 @@ namespace YonatanMankovich.ComputerTasksTimer
         private uint TotalSecondsAtStart { get; set; } = 0;
         private string OriginalFormTitle { get; }
         private bool IsFormFocused { get; set; } = true;
-
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
@@ -32,7 +28,7 @@ namespace YonatanMankovich.ComputerTasksTimer
                 SetCounts(uint.Parse(args[0]));
 
                 if (args.Length > 1)
-                    TaskSelector.SelectedIndex = (int)Enum.Parse(typeof(Tasks), args[1], ignoreCase: true);
+                    TaskSelector.SelectedIndex = (int)Enum.Parse(typeof(ComputerTask), args[1], ignoreCase: true);
 
                 StartBTN_Click(null, EventArgs.Empty);
             }
@@ -137,22 +133,7 @@ namespace YonatanMankovich.ComputerTasksTimer
                 StartBTN.Text = "Start";
                 TaskTimer.Enabled = false;
 
-                switch ((Tasks)TaskSelector.SelectedIndex)
-                {
-                    case Tasks.Shutdown: Process.Start("shutdown.exe", "/s /t 0"); break;
-                    case Tasks.Restart: Process.Start("shutdown.exe", "/r /t 0"); break;
-                    case Tasks.Sleep: Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0"); break;
-                    case Tasks.ScreenOff: SendMessage(0xFFFF, 0x112, 0xF170, 2); break;
-                    case Tasks.ScreenOffAndLock:
-                        Process.Start("Rundll32.exe", "User32.dll,LockWorkStation");
-                        SendMessage(0xFFFF, 0x112, 0xF170, 2);
-                        break;
-                    case Tasks.Lock: Process.Start("Rundll32.exe", "User32.dll,LockWorkStation"); break;
-                    case Tasks.Hibernate: Process.Start("shutdown.exe", "/h"); break;
-                    case Tasks.SignOut: Process.Start("shutdown.exe", "/l"); break;
-                    default: MessageBox.Show("Unknown task"); break;
-                }
-
+                ComputerTaskExecuter.Execute((ComputerTask)TaskSelector.SelectedIndex);
                 Application.Exit();
             }
             KeepAwake();

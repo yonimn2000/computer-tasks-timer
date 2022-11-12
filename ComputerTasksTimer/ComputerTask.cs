@@ -1,6 +1,6 @@
 ﻿namespace YonatanMankovich.ComputerTasksTimer
 {
-    enum Tasks
+    public enum ComputerTask
     {
         Shutdown,
         Restart,
