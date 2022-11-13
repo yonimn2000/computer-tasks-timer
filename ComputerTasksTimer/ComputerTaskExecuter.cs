@@ -65,6 +65,8 @@ namespace YonatanMankovich.ComputerTasksTimer
             Process.Start(new ProcessStartInfo
             {
                 UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = fileName,
                 Arguments = arguments,
             });
